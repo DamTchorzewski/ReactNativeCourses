@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet, ImageBackground, KeyboardAvoidingView, Platform, ScrollView, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 const RegistrationScreen = ({ navigation }) => {
@@ -42,9 +42,7 @@ const RegistrationScreen = ({ navigation }) => {
 
   return (
     <ImageBackground source={require('../assets/mountain.png')} style={styles.backgroundImage}>
-      <View style={styles.container}>
-        <Text style={styles.title}>Registration</Text>
-
+      <View style={styles.avatarWrapper}>
         <TouchableOpacity style={styles.avatarContainer} onPress={pickImage}>
           {avatar ? (
             <Image source={{ uri: avatar }} style={styles.avatar} />
@@ -52,6 +50,9 @@ const RegistrationScreen = ({ navigation }) => {
             <Text style={styles.avatarPlaceholder}>+</Text>
           )}
         </TouchableOpacity>
+      </View>
+      <View style={styles.container}>
+        <Text style={styles.title}>Registration</Text>
 
         <TextInput
           placeholder="Username"
@@ -90,6 +91,32 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover',
   },
+  avatarWrapper: {
+    position: 'absolute',
+    top: '44%', // Adjust this value as needed
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+    zIndex: 1,
+  },
+  avatarContainer: {
+    width: 120,
+    height: 120,
+    backgroundColor: '#F6F6F6',
+
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  avatar: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+  },
+  avatarPlaceholder: {
+  borderRadius: 50,
+    fontSize: 48,
+    color: '#FF6C00',
+  },
   container: {
     position: 'absolute',
     height: '50%',
@@ -101,29 +128,13 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     overflow: 'hidden',
-  },
-  avatarContainer: {
-    width: 100,
-    height: 100,
-    backgroundColor: '#ccc',
-    borderRadius: 50,
-    justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 16,
-  },
-  avatar: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-  },
-  avatarPlaceholder: {
-    fontSize: 48,
-    color: '#FFF',
   },
   title: {
     fontSize: 24,
     marginBottom: 16,
     textAlign: 'center',
+    marginTop: 60, // added margin to avoid overlap with avatar
   },
   input: {
     height: 50,
@@ -132,6 +143,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     paddingLeft: 8,
     borderRadius: 10,
+    width: '100%',
   },
   button: {
     backgroundColor: '#FF6C00',
@@ -139,6 +151,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 100,
     alignItems: 'center',
+    width: '100%',
   },
   buttonText: {
     color: 'white',
